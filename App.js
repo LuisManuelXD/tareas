@@ -51,11 +51,11 @@ $(function () {
                                 <td><a class="tareaNombre text-decoration-none">${tareas.nombre}</a></td>
                                 <td>${tareas.descripcion}</td>
                                 <td>
-                                    <button id="btnTerminado" class="btnTerminado btn btn-outline-success"><img src="./img/listo.png" alt="editar.png" width="26"></button>
+                                    <button id="btnTerminado" class="btnTerminado btn btn-outline-success" title="Presiona este botón para marcar la tarea como realizada."><img src="./img/listo.png" alt="editar.png" width="26"></button>
                                 </td>
                                 <td>
-                                    <button id="btnEditar" class="btnModificarTarea btn btn-outline-warning"><img src="./img/editar.png" alt="editar.png" width="26"></button>
-                                    <button id="btnBorrar" class="eliminarTarea btn btn-outline-danger"><img src="./img/eliminar.png" alt="eliminar.png" width="26"></button>
+                                    <button id="btnEditar" class="btnModificarTarea btn btn-outline-warning" title="Presiona este botón para comenzar a modificar esta tarea."><img src="./img/editar.png" alt="editar.png" width="26"></button>
+                                    <button id="btnBorrar" class="eliminarTarea btn btn-outline-danger" title="Presiona este botón para eliminar esta tarea."><img src="./img/eliminar.png" alt="eliminar.png" width="26"></button>
                                 </td>
                             </tr>
                         `
@@ -67,7 +67,8 @@ $(function () {
                                 <td>${tareas.descripcion}</td>
                                 <td>Finalizado</td>
                                 <td>
-                                <button id="btnBorrar" class="eliminarTarea btn btn-outline-danger"><img src="./img/eliminar.png" alt="eliminar.png" width="26"></button>
+                                    <button id="btnRegresar" class="btnRegresarTarea btn btn-outline-info" title="Presiona este botón para regresar la tarea a pendiente."><img src="./img/regresar.png" alt="regresar.png" width="26"></button>
+                                    <button id="btnBorrar" class="eliminarTarea btn btn-outline-danger" title="Presiona este botón para eliminar esta tarea."><img src="./img/eliminar.png" alt="eliminar.png" width="26"></button>
                                 </td>
                             </tr>
                         `
@@ -144,5 +145,16 @@ $(function () {
                 console.log(respuesta);
             });
         }
+    });
+
+    // Regresar tarea
+    $(document).on('click', '.btnRegresarTarea', function () {
+        let elemento = $(this)[0].parentElement.parentElement;
+        let id = $(elemento).attr('id');
+
+        $.post('./php/RegresarTarea.php', {id}, function (respuesta) {
+            obtenerTareas();
+            console.log(respuesta);
+        });
     });
 });

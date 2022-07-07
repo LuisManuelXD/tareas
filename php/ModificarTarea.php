@@ -1,9 +1,10 @@
 <?php
     include('./DataBase.php');
+    include('./Parametros.php');
 
     $id = $_POST['id'];
-    $nombre = $_POST['nombre'];
-    $descripcion = $_POST['descripcion'];
+    $nombre = openssl_encrypt($_POST['nombre'], COD, KEY);
+    $descripcion = openssl_encrypt($_POST['descripcion'], COD, KEY);
 
     $consultarModificar = "UPDATE tareas SET nombre='$nombre', descripcion='$descripcion' WHERE id='$id'";
     $resultadoConsultaModificar = mysqli_query($conexion, $consultarModificar);

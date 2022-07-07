@@ -1,5 +1,6 @@
 <?php
     include('./DataBase.php');
+    include('./Parametros.php');
 
     $consulta = "SELECT * FROM tareas";
     $resultadoConsulta = mysqli_query($conexion, $consulta);
@@ -12,8 +13,8 @@
     while ( $row = mysqli_fetch_array($resultadoConsulta) ) {
         $json[] = array(
             'id' => $row['id'],
-            'nombre' => $row['nombre'],
-            'descripcion' => $row['descripcion'],
+            'nombre' => openssl_decrypt($row['nombre'], COD, KEY),
+            'descripcion' => openssl_decrypt($row['descripcion'], COD, KEY),
             'realizado' => $row['realizado']
         );
     }

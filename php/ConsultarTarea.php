@@ -1,5 +1,6 @@
 <?php
     include('./DataBase.php');
+    include('./Parametros.php');
 
     if( isset($_POST['id']) ) {
         $valorId = $_POST['id'];
@@ -15,8 +16,8 @@
         while ( $row = mysqli_fetch_array($resultadoConsultaTarea) ) {
             $json[] = array(
                 'id' => $row['id'],
-                'descripcion' => $row['descripcion'],
-                'nombre' => $row['nombre'],
+                'nombre' => openssl_decrypt($row['nombre'], COD, KEY),
+                'descripcion' => openssl_decrypt($row['descripcion'], COD, KEY),
                 'realizado' => $row['realizado']
             );
         }

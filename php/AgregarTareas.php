@@ -1,9 +1,10 @@
 <?php
     include('./DataBase.php');
+    include('./Parametros.php');
 
     if ( isset($_POST['nombre']) ) {
-        $nombre = $_POST['nombre'];
-        $descripcion = $_POST['descripcion'];
+        $nombre = openssl_encrypt($_POST['nombre'], COD, KEY);
+        $descripcion = openssl_encrypt($_POST['descripcion'], COD, KEY);
         $realizado = $_POST['realizado'];
 
         $consultaAgregar = "INSERT INTO tareas (nombre, descripcion, realizado) VALUES ('$nombre', '$descripcion', '$realizado')";
